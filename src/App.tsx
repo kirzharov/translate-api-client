@@ -1,9 +1,9 @@
 import React from 'react';
 
-import LayoutContainer from './domains/layouts/default/LayoutContainer';
+import { MainPageContainer } from './domains/pages/main';
 
 const App: React.FC = () => {
-    return <LayoutContainer>Main page</LayoutContainer>;
+    return <MainPageContainer />;
 };
 
 export default App;
