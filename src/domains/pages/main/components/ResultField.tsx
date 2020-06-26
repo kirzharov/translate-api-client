@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, TextField, IconButton, makeStyles } from '@material-ui/core';
+import CopyToClipboard from 'react-copy-to-clipboard';
 
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 
@@ -12,9 +13,11 @@ export const ResultField: React.FC<ResultFieldPropsT> = ({ data }) => {
         <Grid item xs={12} md={5}>
             <div className={classes.resultWrapper}>
                 <TextField id='standard-textarea' value={data} multiline fullWidth />
-                <IconButton edge='start' color='primary' aria-label='menu' className={classes.icon}>
-                    <FileCopyIcon />
-                </IconButton>
+                <CopyToClipboard text={data}>
+                    <IconButton edge='start' color='primary' aria-label='menu' className={classes.icon}>
+                        <FileCopyIcon />
+                    </IconButton>
+                </CopyToClipboard>
             </div>
         </Grid>
     );
