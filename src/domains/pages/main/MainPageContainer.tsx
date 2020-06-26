@@ -17,6 +17,7 @@ export const MainPageContainer: React.FC = () => {
     const [translateTask, setTranslateTask] = useState<TranslateTaskT>({});
     const [requestError, setRequestError] = useState<string>('');
     const [data, setData] = useState<string>('');
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const handleChangeToken = (event: React.ChangeEvent<HTMLInputElement>) => {
         setToken(event.target.value);
@@ -39,9 +40,12 @@ export const MainPageContainer: React.FC = () => {
             } else {
                 setRequestError('Something wrong, please, check your token');
             }
+
+            setIsLoading(false);
         }
 
         if (Object.entries(translateTask).length !== 0) {
+            setIsLoading(true);
             setData('');
             setRequestError('');
             getTtranslation();
@@ -64,6 +68,7 @@ export const MainPageContainer: React.FC = () => {
                     handleChangeLocale={handleChangeLocale}
                     setTranslateTask={setTranslateTask}
                     requestError={requestError}
+                    isLoading={isLoading}
                 />
                 {data && <ResultField data={data} />}
             </Grid>

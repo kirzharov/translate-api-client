@@ -14,6 +14,7 @@ export type Step2PropsT = {
     handleChangeLocale: (event: any) => void;
     setTranslateTask: any;
     requestError: string;
+    isLoading: boolean;
 };
 
 export type ResultFieldPropsT = {
