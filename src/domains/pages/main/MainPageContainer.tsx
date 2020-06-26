@@ -5,6 +5,7 @@ import { Default as LayoutContainer } from '../../layouts';
 import { Step1, Step2, ResultField } from './components';
 
 import { translate } from '../../../helpers/apiHandlers';
+import { setTokenToLocalStorage, getTokenFromLocalStorage } from '../../../helpers/localStorageHandlers';
 
 import { provider, locales } from '../../../configs/providers/microsoftTranslatorTextApiV3';
 
@@ -20,7 +21,10 @@ export const MainPageContainer: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const handleChangeToken = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setToken(event.target.value);
+        let newToken = event.target.value;
+
+        setToken(newToken);
+        setTokenToLocalStorage(newToken);
     };
 
     const handleChangeTranslateText = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +34,10 @@ export const MainPageContainer: React.FC = () => {
     const handleChangeLocale = (event: any) => {
         setLocale(event.target.value);
     };
+
+    useEffect(() => {
+        setToken(getTokenFromLocalStorage());
+    }, []);
 
     useEffect(() => {
         async function getTtranslation() {
