@@ -47,7 +47,7 @@ export const Step2: React.FC<Step2PropsT> = ({
                     variant='contained'
                     color='primary'
                     className={classes.button}
-                    disabled={translateText.length === 0}
+                    disabled={translateText.length === 0 || locale.length === 0}
                     onClick={() => setTranslateTask({ token, translateText, locale, provider })}
                 >
                     Translate

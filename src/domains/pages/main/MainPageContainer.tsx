@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 
 import { Default as LayoutContainer } from '../../layouts';
-import { Step1, Step2 } from './components';
+import { Step1, Step2, ResultField } from './components';
 
 import { translate } from '../../../helpers/apiHandlers';
 
@@ -65,6 +65,7 @@ export const MainPageContainer: React.FC = () => {
                     setTranslateTask={setTranslateTask}
                     requestError={requestError}
                 />
+                {data && <ResultField data={data} />}
             </Grid>
         </LayoutContainer>
     );

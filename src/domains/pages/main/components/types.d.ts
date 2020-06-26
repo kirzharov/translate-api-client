@@ -15,3 +15,7 @@ export type Step2PropsT = {
     setTranslateTask: any;
     requestError: string;
 };
+
+export type ResultFieldPropsT = {
+    data: string;
+};
