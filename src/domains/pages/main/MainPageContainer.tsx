@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 
 import { Default as LayoutContainer } from '../../layouts';
 import { Step1, Step2 } from './components';
 
-import { provider, locales } from '../../../configs/providers/microsoftTranslatorTextApiV3';
+import { translate } from '../../../helpers/apiHandlers';
 
-import { TranslateTaskT } from './types';
+import { provider, locales } from '../../../configs/providers/microsoftTranslatorTextApiV3';
 
 export const MainPageContainer: React.FC = () => {
     const classes = useStyles();
@@ -15,6 +15,8 @@ export const MainPageContainer: React.FC = () => {
     const [translateText, setTranslateText] = useState<string>('');
     const [locale, setLocale] = useState<string>('');
     const [translateTask, setTranslateTask] = useState<TranslateTaskT>({});
+    const [requestError, setRequestError] = useState<string>('');
+    const [data, setData] = useState<string>('');
 
     const handleChangeToken = (event: React.ChangeEvent<HTMLInputElement>) => {
         setToken(event.target.value);
@@ -28,10 +30,28 @@ export const MainPageContainer: React.FC = () => {
         setLocale(event.target.value);
     };
 
+    useEffect(() => {
+        async function getTtranslation() {
+            let res = await translate(translateTask);
+
+            if (res.results && res.results.length > 0) {
+                setData(res.results[0]);
+            } else {
+                setRequestError('Something wrong, please, check your token');
+            }
+        }
+
+        if (Object.entries(translateTask).length !== 0) {
+            setData('');
+            setRequestError('');
+            getTtranslation();
+        }
+    }, [translateTask]);
+
     return (
         <LayoutContainer>
             <Grid container spacing={4} className={classes.root}>
-                <Step1 token={token} handleChangeToken={handleChangeToken} />
+                <Step1 token={token} handleChangeToken={handleChangeToken} requestError={requestError} />
             </Grid>
             <Grid container spacing={4}>
                 <Step2
@@ -43,6 +63,7 @@ export const MainPageContainer: React.FC = () => {
                     handleChangeTranslateText={handleChangeTranslateText}
                     handleChangeLocale={handleChangeLocale}
                     setTranslateTask={setTranslateTask}
+                    requestError={requestError}
                 />
             </Grid>
         </LayoutContainer>

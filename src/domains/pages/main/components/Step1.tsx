@@ -3,7 +3,7 @@ import { Grid, Typography, FormControl, InputLabel, Input, makeStyles } from '@m
 
 import { Step1PropsT } from './types';
 
-export const Step1: React.FC<Step1PropsT> = ({ token, handleChangeToken }) => {
+export const Step1: React.FC<Step1PropsT> = ({ token, handleChangeToken, requestError }) => {
     const classes = useStyles();
 
     return (
@@ -12,7 +12,9 @@ export const Step1: React.FC<Step1PropsT> = ({ token, handleChangeToken }) => {
                 Step 1:
             </Typography>
             <FormControl className={classes.formControl}>
-                <InputLabel htmlFor='component-simple'>Token</InputLabel>
+                <InputLabel htmlFor='component-simple' error={requestError.length > 0}>
+                    Token
+                </InputLabel>
                 <Input
                     id='component-simple'
                     placeholder='example: 9a7ad4890d38499b9e941ba41dbd6986'

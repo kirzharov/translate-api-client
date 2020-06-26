@@ -1,6 +1,7 @@
 export type Step1PropsT = {
     token: string;
     handleChangeToken: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    requestError: string;
 };
 
 export type Step2PropsT = {
@@ -12,4 +13,5 @@ export type Step2PropsT = {
     handleChangeTranslateText: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleChangeLocale: (event: any) => void;
     setTranslateTask: any;
+    requestError: string;
 };
